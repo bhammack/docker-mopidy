@@ -4,11 +4,12 @@ FROM debian:buster-slim
 
 RUN set -ex \
  && apt update \
- && apt install -y wget dumb-init gstreamer1.0-plugins-bad
+ && apt install -y wget curl dumb-init gstreamer1.0-plugins-bad
 
 RUN mkdir -p /usr/local/share/keyrings
 RUN wget -q -O /usr/local/share/keyrings/mopidy-archive-keyring.gpg https://apt.mopidy.com/mopidy.gpg
 RUN wget -q -O /etc/apt/sources.list.d/mopidy.list https://apt.mopidy.com/buster.list
+# RUN add-apt-repository ppa:yt-dlp/stable
 
 RUN set -ex \ 
  && apt update \
@@ -16,6 +17,7 @@ RUN set -ex \
 
 RUN pip3 install \
     youtube-dl \
+    yt-dlp \
     mopidy-iris \
     mopidy-youtube \
     mopidy-local \
